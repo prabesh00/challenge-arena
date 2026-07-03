@@ -4,7 +4,7 @@ Multi-page Streamlit application for running AI/ML bootcamp challenges.
 """
 
 import streamlit as st
-from database.db import init_db
+from database.db import get_connection
 from utils.helpers import ensure_dirs
 
 st.set_page_config(
@@ -14,11 +14,9 @@ st.set_page_config(
     initial_sidebar_state="collapsed",
 )
 
-# Initialize database and directories on first run
-if "db_initialized" not in st.session_state:
-    ensure_dirs()
-    init_db()
-    st.session_state["db_initialized"] = True
+# Ensure data directories exist on startup
+ensure_dirs()
+# Database tables are auto-created by get_connection() on first use
 
 
 def main():
